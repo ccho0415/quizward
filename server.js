@@ -14,6 +14,7 @@ var quizController = require('./controllers/quizController');
 var categoryController = require('./controllers/categoryController');
 var passport = require('./config/passport');
 var passController = require('./controllers/passController');
+var apiController = require('./controllers/apiController');
 
 
 // Create app
@@ -43,6 +44,7 @@ app.use('/', defaultController);
 app.use('/quizzes', quizController);
 app.use('/categories', categoryController);
 app.use('/auth', passController);
+app.use('/api', apiController);
 
 
 // Create Server
