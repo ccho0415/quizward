@@ -62,11 +62,11 @@ router.get('/users/:user_id/categories', (req, res) => {
   // Models.sequelize.query('SELECT * FROM User;').then((results) => {
   //   res.json(results);
   // })
-
-  Models.User.findAll({
-    include: [
-      { model: Models.UserCategory }
-    ]
+  Models.User.findOne({
+    include: [{ 
+      model: Models.Category,
+    }],
+    where: { id: user_id }
   })
   .then((results) => {
     res.json(results);

@@ -36,7 +36,8 @@
       </li>
       <li class="list-group-item">
         <h4> <span class="label label-success">GET</span> '/users/:user_id/categories' </h4>
-        <p> Returns the categories that a user follows</p>
+        <p> Returns a User object, that has a property of <code>Categories</code> which is an array of category objects</p>
+        <p> * if its not a valid user_id, it will return NULL </p>
       </li>
 
     </ul>
