@@ -11,11 +11,11 @@ module.exports = function(sequelize, DataTypes) {
     underscored: true,
     // disable the modification of table names
     freezeTableName: true,
-    // classMethods: {
-    //   associate: function(models) {
-    //     Comment.belongsTo(models.UserQuiz, { foreignKey: models.UserQuiz.id });
-    //   }
-    // }
+    classMethods: {
+      associate: function(models) {
+        Comment.belongsTo(models.Quiz, { foreignKey: models.UserQuiz.id });
+      }
+    }
   }); // closes .define
   return Comment;
 };
