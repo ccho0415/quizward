@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 
 // Get access to db
 var Models = require('../models');
+var Sequelize = Models.Sequelize;
 
 // Create Router Object & middleware
 var router = express.Router();
@@ -16,9 +17,6 @@ router.get('/', function(req, res) {
 })
 
 // CATEGORY  ----------------------------------- //
-/**
- * "/categories/:id?*" {GET} - returns all categories or given an id, returns that category specifically
- */
 router.get('/categories/:id?', (req, res) => {
   // 1.) if there's a category id in query string get it
   category_id = parseInt(req.params.id);
@@ -38,7 +36,7 @@ router.get('/categories/:id?', (req, res) => {
 });
 
 // USER ----------------------------------- //
-router.get('/users/:id?', function(req, res) {
+router.get('/users/:id?', (req, res) => {
   user_id = parseInt(req.params.id);
 
   if (user_id) {
@@ -54,7 +52,35 @@ router.get('/users/:id?', function(req, res) {
       res.json(results);
     })
   }
-})
+});
+
+router.get('/users/:user_id/categories', (req, res) => {
+  // get user_id;
+  var user_id = parseInt(req.params.user_id);
+
+  // make query
+  // Models.sequelize.query('SELECT * FROM User;').then((results) => {
+  //   res.json(results);
+  // })
+
+  Models.User.findAll({
+    include: [
+      { model: Models.UserCategory }
+    ]
+  })
+  .then((results) => {
+    res.json(results);
+  })
+  //   where: { id: user_id },
+  //   // include: [Models.UserCategory, Models.Category]
+  //   // include: [{
+  //   //   model: 'UserCategory',
+  //   //   where: { user_id: Sequelize.col('User.id')}
+  //   // }]
+
+
+  // res.json({ user_id });
+});
 
 
 // QUIZ ----------------------------------- //
