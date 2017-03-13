@@ -1,0 +1,58 @@
+<h2>API DOCUMENTATION</h2>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Categories</h3>
+  </div>
+  <div class="panel-body">
+
+    <ul class="list-group">
+      <li class="list-group-item">
+        <h4> <span class="label label-success">GET</span> '/categories/:id?' </h4>
+        <p> If not given an id (ex. GET "/api/categories") returns an array of all category objects in database</p>
+        <p> When given an id, (ex. GET "/api/categories/2") returns a single category object</p>
+        <p> *If you request a single category object that doesn't exist, returns NULL</p>
+      </li>
+
+    </ul>
+
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Users</h3>
+  </div>
+  <div class="panel-body">
+
+    <ul class="list-group">
+      <li class="list-group-item">
+        <h4> <span class="label label-success">GET</span> '/users/:id?' </h4>
+        <p> If not given an id (ex. GET "/api/users") returns an array of all users objects in database</p>
+        <p> When given an id, (ex. GET "/api/users/2") returns a single category object</p>
+        <p> *If you request a single category object that doesn't exist, returns NULL</p>
+        <p>* Excludes the password_hash for return all users, but not for indiviual user</p>
+      </li>
+
+    </ul>
+
+  </div>
+</div>
+
+{{!--<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Panel title</h3>
+  </div>
+  <div class="panel-body">
+
+    <ul class="list-group">
+      <li class="list-group-item">Cras justo odio</li>
+      <li class="list-group-item">Dapibus ac facilisis in</li>
+      <li class="list-group-item">Morbi leo risus</li>
+      <li class="list-group-item">Porta ac consectetur ac</li>
+      <li class="list-group-item">Vestibulum at eros</li>
+    </ul>
+
+  </div>
+</div>--}}

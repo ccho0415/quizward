@@ -38,8 +38,22 @@ router.get('/categories/:id?', (req, res) => {
 });
 
 // USER ----------------------------------- //
-router.get('/', function(req, res) {
-  res.json({ errors: false });
+router.get('/users/:id?', function(req, res) {
+  user_id = parseInt(req.params.id);
+
+  if (user_id) {
+    Models.User.findOne({
+      where: { id: user_id }
+    }).then((results) => {
+      res.json(results);
+    })
+  } else {
+    Models.User.findAll({
+      attributes: { exclude: ['password_hash'] }
+    }).then((results) => {
+      res.json(results);
+    })
+  }
 })
 
 
