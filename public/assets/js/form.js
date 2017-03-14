@@ -51,13 +51,13 @@ $(document).ready(function() {
       var questionItem = {};
       questionItem.quiz_id = r.id;
       questionItem.question = $(this).find('[name=question]').val();
-      questionItem.answer = $(this).find('[name=answer]').val();
+      questionItem.correct_answer = $(this).find('[name=answer]').val();
       questionItem.explanation = $(this).find('[name=explanation]').val();
       var questionChoices = [];
       $(this).find('.choice-container').find('input').each(function() {
         questionChoices.push($(this).val());
       })
-      questionItem.choices = JSON.stringify(questionChoices);
+      questionItem.choice = JSON.stringify(questionChoices);
       questionList.push(questionItem);
     });
     fullQuestionList.questionList = questionList;
@@ -101,7 +101,64 @@ $(document).ready(function() {
 
   // Create Quiz
   $('body').on('click', '.submit-quiz', function() {
-    createQuiz();
-  });
+    // createQuiz();
+    // var quiz = getQuizData();
+    // var categories = getCategoryData();
+    // var questions = getQuestionData();
+    var data = {
+      quiz: JSON.stringify(getQuizData()),
+      categories: JSON.stringify(getCategoryData()),
+      questions: JSON.stringify(getQuestionData()),
+    };
+    // console.dir(data);
+    var data_snapshot = JSON.stringify(data);
+    console.dir(data_snapshot);
+
+    $.ajax({
+      url: '/api/quiz/new',
+      method: 'POST',
+      data: data,
+    }).then(function(response){
+      console.log(response)
+    });
+
+
+
+  }); // closes .submit-quiz event
+
+// ------------ Alan's Helper functions ----------------
+function getQuizData(){
+    var newQuiz = {};
+    newQuiz.name = $("[name=name]").val();
+    newQuiz.description = $('.quiz-description').val();
+    return newQuiz;
+};
+
+function getCategoryData() {
+    categories_array = [];
+    $('.quiz-categories option:selected').each(function() {
+      categories_array.push(parseInt($(this).attr('category-id')));
+    });
+    return categories_array;
+};
+
+function getQuestionData() {
+    var questionList = [];
+    $('.question').each(function() {
+      var questionItem = {};
+      questionItem.quiz_id;
+      questionItem.question = $(this).find('[name=question]').val();
+      questionItem.correct_answer = $(this).find('[name=answer]').val();
+      questionItem.explanation = $(this).find('[name=explanation]').val();
+      var questionChoices = [];
+      $(this).find('.choice-container').find('input').each(function() {
+        questionChoices.push($(this).val());
+      })
+      questionItem.choice = JSON.stringify(questionChoices);
+      questionList.push(questionItem);
+    });
+    return questionList;
+};
+
 
 });
