@@ -17,6 +17,7 @@ router.get('/', function(req, res) {
 })
 
 // CATEGORY  ----------------------------------- //
+// --------- Category GET ----------------------//
 router.get('/categories/:id?', (req, res) => {
   // 1.) if there's a category id in query string get it
   category_id = parseInt(req.params.id);
@@ -84,6 +85,34 @@ router.get('/users/:user_id/categories', (req, res) => {
 
 
 // QUIZ ----------------------------------- //
+// --------- QUIZ GET ----------------------//
+router.get('/quiz/:id?', (req, res) => {
+  var quiz_id = parseInt(req.params.id);
+
+  if (quiz_id) {
+    Models.Quiz.findOne({
+      where: { id: quiz_id }
+    }).then((results) => {
+      res.json(results);
+    })
+  } else {
+    Models.Quiz.findAll({}).then((results) => {
+      res.json(results);
+    })
+  }
+});
+
+// --------- QUIZ POST ----------------------//
+// prev url: quizzes/create
+// data: { name, category }
+/** req.body
+ *  name {string} - the name of the quiz
+ * description {string} - description of the quiz
+ * category {stringified array} - array of cateory -id
+ */
+router.post('/quiz/new', (req, res) => {
+
+})
 
 
 
