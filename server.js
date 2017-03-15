@@ -18,7 +18,7 @@ var apiController = require('./controllers/apiController');
 
 // Create app
 var app = express();
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 8080;
 
 // Set up view w. Handlebars
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
