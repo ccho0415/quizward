@@ -91,6 +91,12 @@ var userCat_2 = {
   category_id: 2,
 }
 
+var post_1 = {
+  comment: 'Hello FOOODid world!',
+  quiz_id: 1,
+  user_id: 3,
+}
+
 // ============ Call queries ==============
 Models.sequelize.sync({ force: true }).then(function(){
   // 
@@ -106,6 +112,7 @@ Models.sequelize.sync({ force: true }).then(function(){
     addRow(cat_2, 'Category'),
     addRow(userCat_1, 'UserCategory'),
     addRow(userCat_2, 'UserCategory'),
+    addRow(post_1, 'Post'),
   ])
   .then(function(){
     console.log('All your queries worked! Check your database');
