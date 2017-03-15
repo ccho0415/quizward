@@ -56,31 +56,33 @@ router.get('/users/:id?', (req, res) => {
 });
 
 router.get('/users/:user_id/categories', (req, res) => {
-  // get user_id;
-  var user_id = parseInt(req.params.user_id);
-
-  // make query
-  // Models.sequelize.query('SELECT * FROM User;').then((results) => {
-  //   res.json(results);
-  // })
   Models.User.findOne({
     include: [{ 
       model: Models.Category,
     }],
-    where: { id: user_id }
+    where: { 
+      id: parseInt(req.params.user_id) 
+    }
   })
   .then((results) => {
     res.json(results);
   })
-  //   where: { id: user_id },
-  //   // include: [Models.UserCategory, Models.Category]
-  //   // include: [{
-  //   //   model: 'UserCategory',
-  //   //   where: { user_id: Sequelize.col('User.id')}
-  //   // }]
+});
 
-
-  // res.json({ user_id });
+router.get('/users/profile/:user_id/', (req, res) => {
+  Models.User.findOne({
+    include: [
+      { model: Models.Quiz },
+      { model: Models.Post },
+    ],
+    where: { 
+      id: parseInt(req.params.user_id) 
+    }
+  })
+  .then((results) => {
+    res.json(results);
+  })
+  .catch((error) => res.json(error));
 });
 
 
@@ -103,16 +105,6 @@ router.get('/quiz/:id?', (req, res) => {
 });
 
 // --------- QUIZ POST ----------------------//
-// Purpose: makes a new quiz 
-// prev url: quizzes/create
-// data: { name, category }
-/** req.body
- *  name {string} - the name of the quiz
- * description {string} - description of the quiz
- * category {stringified array} - array of cateory -id
- */
-
-
 router.post('/quiz/new', (req, res) => {
   // helper functions - to insert data 
   function insertCategories(categories, quiz_id) {
