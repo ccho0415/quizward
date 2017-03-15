@@ -41,7 +41,7 @@ router.get('/users/:id?', (req, res) => {
   if (req.params.id) {
     Models.User.findOne({
       where: { id: parseInt(req.params.id) },
-      // attributes: { exclude: ['password_hash'] },
+      attributes: { exclude: ['password_hash'] },
     }).then((results) => {
       res.json(results);
     })
@@ -64,7 +64,10 @@ router.get('/users/:user_id/:searchTerm?', (req, res) => {
       break;
     }
     case 'quizTaken': {
-      includeArray.push({ model: Models.Quiz });
+      includeArray.push({ 
+        model: Models.Quiz,
+        // where: {},
+      });
       break;
     }
     // case 'quizMade': {
@@ -74,14 +77,15 @@ router.get('/users/:user_id/:searchTerm?', (req, res) => {
       includeArray.push({ model: Models.Post });
       break;
     }
-    default: {
-      includeArray.push({ model: Models.Post });
-      includeArray.push({ model: Models.Quiz });
-      includeArray.push({ model: Models.Category });
-    }
+    // default: {
+    //   includeArray.push({ model: Models.Post });
+    //   includeArray.push({ model: Models.Quiz });
+    //   includeArray.push({ model: Models.Category });
+    // }
   }
 
   Models.User.findOne({
+    attributes: { exclude: ['password_hash'] },
     include: includeArray,
     where: { 
       id: parseInt(req.params.user_id) 
