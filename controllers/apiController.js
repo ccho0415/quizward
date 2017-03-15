@@ -105,7 +105,6 @@ router.get('/users/:user_id/:searchTerm?', (req, res) => {
 // GET for quiz ----------------------//
 router.get('/quiz/:id?', (req, res) => {
   var quiz_id = parseInt(req.params.id);
-
   if (quiz_id) {
     Models.Quiz.findOne({
       where: { id: quiz_id }
@@ -117,6 +116,20 @@ router.get('/quiz/:id?', (req, res) => {
       res.json(results);
     })
   }
+});
+
+router.get('/quiz/by-category/:category_id?', (req, res) => {
+  var category_id = parseInt(req.params.category_id);
+  // res.json(category_id)
+  Models.Quiz.findAll({
+    include: [{ 
+      model: Models.Category, 
+      through: Models.QuizCategory,
+      where: { id: category_id }
+    }],
+  }).then((results) => {
+    res.json(results);
+  })
 });
 
 // POST for quiz ----------------------//

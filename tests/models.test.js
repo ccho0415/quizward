@@ -97,6 +97,7 @@ var post_1 = {
   user_id: 3,
 }
 
+
 // ============ Call queries ==============
 Models.sequelize.sync({ force: true }).then(function(){
   // 
@@ -113,6 +114,7 @@ Models.sequelize.sync({ force: true }).then(function(){
     addRow(userCat_1, 'UserCategory'),
     addRow(userCat_2, 'UserCategory'),
     addRow(post_1, 'Post'),
+    addRow(quizCat_1, 'QuizCategory'),
   ])
   .then(function(){
     console.log('All your queries worked! Check your database');

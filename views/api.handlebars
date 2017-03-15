@@ -69,6 +69,12 @@
         <p>When a specified id is given, a quiz object is returned or null</p> 
       </li>
       <li class="list-group-item">
+        <h4> <span class="label label-success">GET</span> <code>'api/quiz/by-category/:id?' </code></h4>
+        <p>Gets quizzess by category id</p>
+        <p>the id is optional, but when not given it will just return all the quizzess</p>
+        <p>if there are no quizzess made for that category or that category id is invalid, you'll get an empty array</p> 
+      </li>
+      <li class="list-group-item">
         <h4> <span class="label label-info">POST</span> <code>'api/quiz/new'</code></h4>
         <p> Data should be an object with three keys:</p>
         <p><code> var data = { quiz, categories, questions } </code></p>
@@ -79,9 +85,7 @@
         <p> Returns a User object, that has a property of <code>Categories</code> which is an array of category objects</p>
         <p> * if its not a valid user_id, it will return NULL </p>
       </li>--}}
-
     </ul>
-
   </div>
 </div>
 
