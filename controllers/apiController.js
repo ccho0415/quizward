@@ -3,7 +3,6 @@ var bodyParser = require('body-parser');
 
 // Get access to db
 var Models = require('../models');
-var Sequelize = Models.Sequelize;
 
 // Create Router Object & middleware
 var router = express.Router();
@@ -57,7 +56,7 @@ router.get('/users/:user_id/:searchTerm?', (req, res) => {
   var searchTerm = req.params.searchTerm;
   var userId = parseInt(req.params.user_id);
 
-  if (searchTerm == 'quizzess-made'){
+  if (searchTerm === 'quizzess-made'){
     var quizzess_made;
     Models.Quiz.findAll({
       where: { made_by: userId }
@@ -66,7 +65,7 @@ router.get('/users/:user_id/:searchTerm?', (req, res) => {
       return Models.User.findOne({ where: { id: userId }});
     }).then((user) => {
       var userObj = user.dataValues;
-      userObj.quizzess_made = quizzess_made;
+      userObj.QuizzessMade = quizzess_made;
       res.json(userObj);
     });
   } else {
