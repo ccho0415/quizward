@@ -98,9 +98,6 @@ router.get('/users/:user_id/:searchTerm?', (req, res) => {
 }); // closes router
 
 
-
-
-
 // ====================== QUIZ routes  ====================== //
 // GET for quiz ----------------------//
 router.get('/quiz/:id?', (req, res) => {
@@ -118,6 +115,27 @@ router.get('/quiz/:id?', (req, res) => {
   }
 });
 
+// gets the quiz & associated questions
+router.get('/quiz/:id/questions', (req, res) => {
+  var quiz_id = parseInt(req.params.id);
+  if (quiz_id) {
+    Models.Quiz.findOne({
+      include: [{
+        model: Models.Question
+      }],
+      where: { id: quiz_id }
+    }).then((results) => {
+      res.json(results);
+    })
+  } else {
+    Models.Quiz.findAll({}).then((results) => {
+      res.json(results);
+    })
+  }
+});
+
+
+// gets all quizzess based on category id
 router.get('/quiz/by-category/:category_id?', (req, res) => {
   var category_id = parseInt(req.params.category_id);
   // res.json(category_id)
