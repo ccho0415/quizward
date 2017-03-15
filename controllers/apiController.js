@@ -111,21 +111,22 @@ router.get('/quiz/:id?', (req, res) => {
  * description {string} - description of the quiz
  * category {stringified array} - array of cateory -id
  */
-// helper functions - to insert data 
-function insertCategories(categories, quiz_id) {
-  var insertData = categories.map((category_id) => { return({category_id, quiz_id}) });
-  return Models.QuizCategory.bulkCreate(insertData);
-};
 
-function insertQuestions(questions, quiz_id) {
-  var insertData = questions.map((question) => { 
-    question.quiz_id = quiz_id;
-    return question;
-  });
-  return Models.Question.bulkCreate(insertData);
-};
 
 router.post('/quiz/new', (req, res) => {
+  // helper functions - to insert data 
+  function insertCategories(categories, quiz_id) {
+    var insertData = categories.map((category_id) => { ({category_id, quiz_id}) });
+    return Models.QuizCategory.bulkCreate(insertData);
+  };
+
+  function insertQuestions(questions, quiz_id) {
+    var insertData = questions.map((question) => { 
+      question.quiz_id = quiz_id;
+      return question;
+    });
+    return Models.Question.bulkCreate(insertData);
+  };
   var quiz = JSON.parse(req.body.quiz);
   var categories = JSON.parse(req.body.categories); // array of category ids
   var questions = JSON.parse(req.body.questions); 
@@ -143,9 +144,7 @@ router.post('/quiz/new', (req, res) => {
     var question_promise = insertQuestions(questions, quiz.id);
     return Promise.all([category_promise, question_promise]);
   })
-  .then((results)=> {
-    res.json(results);
-  }); // ends Quiz.creation 
+  .then((results)=> res.json(results)); // ends Quiz.creation 
 })
 
 
