@@ -18,7 +18,7 @@ function addRow(rowObj, modelName){
 // USERS
 var admin = {
   username: 'admin',
-  email: 'admin@email.com',
+  email: 'admin@gmail.com',
   password_hash: '$2a$10$Bqr4655MoYjR6kJ2zyc5tuxfKQddTLhAvmBzrRUBWfGvfBkUWWIpO',
   isAdmin: true,
 }
