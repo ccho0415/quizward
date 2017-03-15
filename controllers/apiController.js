@@ -3,7 +3,6 @@ var bodyParser = require('body-parser');
 
 // Get access to db
 var Models = require('../models');
-var Sequelize = Models.Sequelize;
 
 // Create Router Object & middleware
 var router = express.Router();
@@ -16,13 +15,10 @@ router.get('/', function(req, res) {
   res.render('api.handlebars');
 })
 
-// CATEGORY  ----------------------------------- //
-// --------- Category GET ----------------------//
+// ====================== CATEGORY routes ====================== //
+// GET for category ----------------------//
 router.get('/categories/:id?', (req, res) => {
-  // 1.) if there's a category id in query string get it
   category_id = parseInt(req.params.id);
-
-  // 2) Query database
   if (category_id) {
     Models.Category.findOne(
       { where: { id: category_id} }
@@ -36,59 +32,76 @@ router.get('/categories/:id?', (req, res) => {
   }
 });
 
-// USER ----------------------------------- //
+// ====================== USER routes  ====================== //
+// GET for user ----------------------//
 router.get('/users/:id?', (req, res) => {
-  user_id = parseInt(req.params.id);
-
-  if (user_id) {
+  var userId = parseInt(req.params.id);
+  if (userId) {
     Models.User.findOne({
-      where: { id: user_id }
+      where: { id: userId },
+      attributes: { exclude: ['password_hash'] },
     }).then((results) => {
       res.json(results);
     })
   } else {
     Models.User.findAll({
-      attributes: { exclude: ['password_hash'] }
+      attributes: { exclude: ['password_hash'] },
     }).then((results) => {
       res.json(results);
     })
   }
 });
 
-router.get('/users/:user_id/categories', (req, res) => {
-  // get user_id;
-  var user_id = parseInt(req.params.user_id);
+router.get('/users/:user_id/:searchTerm?', (req, res) => {
+  var searchTerm = req.params.searchTerm;
+  var userId = parseInt(req.params.user_id);
 
-  // make query
-  // Models.sequelize.query('SELECT * FROM User;').then((results) => {
-  //   res.json(results);
-  // })
-  Models.User.findOne({
-    include: [{ 
-      model: Models.Category,
-    }],
-    where: { id: user_id }
-  })
-  .then((results) => {
-    res.json(results);
-  })
-  //   where: { id: user_id },
-  //   // include: [Models.UserCategory, Models.Category]
-  //   // include: [{
-  //   //   model: 'UserCategory',
-  //   //   where: { user_id: Sequelize.col('User.id')}
-  //   // }]
+  if (searchTerm === 'quizzess-made'){
+    var quizzess_made;
+    Models.Quiz.findAll({
+      where: { made_by: userId }
+    }).then((quizMade) => {
+      quizzess_made = quizMade;
+      return Models.User.findOne({ where: { id: userId }});
+    }).then((user) => {
+      var userObj = user.dataValues;
+      userObj.QuizzessMade = quizzess_made;
+      res.json(userObj);
+    });
+  } else {
+    switch (searchTerm) {
+      case 'categories': {
+        var includeArray = [{ model: Models.Category }];
+        break;
+      }
+      case 'quizzess-taken': {
+        var includeArray = [{ model: Models.Quiz }];
+        break;
+      }
+      case 'posts': {
+        var includeArray = [{ model: Models.Post }];
+        break;
+      }
+    }; // ends switch
+
+    Models.User.findOne({
+      attributes: { exclude: ['password_hash'] },
+      include: includeArray,
+      where: { 
+        id: userId, 
+      }
+    })
+    .then((results) => {
+        res.json(results);
+    })
+  } // end of else
+}); // closes router
 
 
-  // res.json({ user_id });
-});
-
-
-// QUIZ ----------------------------------- //
-// --------- QUIZ GET ----------------------//
+// ====================== QUIZ routes  ====================== //
+// GET for quiz ----------------------//
 router.get('/quiz/:id?', (req, res) => {
   var quiz_id = parseInt(req.params.id);
-
   if (quiz_id) {
     Models.Quiz.findOne({
       where: { id: quiz_id }
@@ -102,20 +115,46 @@ router.get('/quiz/:id?', (req, res) => {
   }
 });
 
-// --------- QUIZ POST ----------------------//
-// Purpose: makes a new quiz 
-// prev url: quizzes/create
-// data: { name, category }
-/** req.body
- *  name {string} - the name of the quiz
- * description {string} - description of the quiz
- * category {stringified array} - array of cateory -id
- */
+// gets the quiz & associated questions
+router.get('/quiz/:id/questions', (req, res) => {
+  var quiz_id = parseInt(req.params.id);
+  if (quiz_id) {
+    Models.Quiz.findOne({
+      include: [{
+        model: Models.Question
+      }],
+      where: { id: quiz_id }
+    }).then((results) => {
+      res.json(results);
+    })
+  } else {
+    Models.Quiz.findAll({}).then((results) => {
+      res.json(results);
+    })
+  }
+});
 
 
+// gets all quizzess based on category id
+router.get('/quiz/by-category/:category_id?', (req, res) => {
+  var category_id = parseInt(req.params.category_id);
+  // res.json(category_id)
+  Models.Quiz.findAll({
+    include: [{ 
+      model: Models.Category, 
+      through: Models.QuizCategory,
+      where: { id: category_id }
+    }],
+  }).then((results) => {
+    res.json(results);
+  })
+});
+
+// POST for quiz ----------------------//
 router.post('/quiz/new', (req, res) => {
   // helper functions - to insert data 
   function insertCategories(categories, quiz_id) {
+    if (categories.length === 0) return Promise.resolve(); // don't try to insert empty data
     var insertData = categories.map((category_id) => { ({category_id, quiz_id}) });
     return Models.QuizCategory.bulkCreate(insertData);
   };
