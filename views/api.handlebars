@@ -69,6 +69,18 @@
         <p>When a specified id is given, a quiz object is returned or null</p> 
       </li>
       <li class="list-group-item">
+        <h4> <span class="label label-success">GET</span> <code>'api/quiz/:id/questions' </code></h4>
+        <p>Gets a specified quiz by the id, and the "Questions" associated with that quiz</p>
+        <p>Returns a quiz object (if valid id), and has a key of <code>"Questions" {array}</code> of question objects</p>
+        <p>Question objects have the following important keys:</p>
+        <ul>
+          <li><code>question {string}</code> : the actual question</li>
+          <li><code>choice {string}</code> : JSON.stringified array of the choices</li>
+          <li><code>correct_answer {string}</code> : the correct answer</li>
+          <li><code>explanation {string}</code> : explanation for the answer (optional)</li>
+        </ul>
+      </li>
+      <li class="list-group-item">
         <h4> <span class="label label-success">GET</span> <code>'api/quiz/by-category/:id?' </code></h4>
         <p>Gets quizzess by category id</p>
         <p>the id is optional, but when not given it will just return all the quizzess</p>
