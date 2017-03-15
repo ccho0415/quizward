@@ -82,6 +82,15 @@ var userquiz_1 = {
   user_id: 3,
 }
 
+var userCat_1 = {
+  user_id: 3,
+  category_id: 1,
+}
+var userCat_2 = {
+  user_id: 3,
+  category_id: 2,
+}
+
 // ============ Call queries ==============
 Models.sequelize.sync({ force: true }).then(function(){
   // 
@@ -95,6 +104,8 @@ Models.sequelize.sync({ force: true }).then(function(){
     addRow(userquiz_1, 'UserQuiz'),
     addRow(cat_1, 'Category'),
     addRow(cat_2, 'Category'),
+    addRow(userCat_1, 'UserCategory'),
+    addRow(userCat_2, 'UserCategory'),
   ])
   .then(function(){
     console.log('All your queries worked! Check your database');
