@@ -55,46 +55,52 @@ router.get('/users/:id?', (req, res) => {
 });
 
 router.get('/users/:user_id/:searchTerm?', (req, res) => {
-  var includeArray = [];
-
   var searchTerm = req.params.searchTerm;
-  switch (searchTerm) {
-    case 'categories': {
-      includeArray.push({ model: Models.Category });
-      break;
-    }
-    case 'quizTaken': {
-      includeArray.push({ 
-        model: Models.Quiz,
-        // where: {},
-      });
-      break;
-    }
-    // case 'quizMade': {
-    //   // includeArray.push({ model: Models.})
-    // }
-    case 'posts': {
-      includeArray.push({ model: Models.Post });
-      break;
-    }
-    // default: {
-    //   includeArray.push({ model: Models.Post });
-    //   includeArray.push({ model: Models.Quiz });
-    //   includeArray.push({ model: Models.Category });
-    // }
-  }
+  var userId = parseInt(req.params.user_id);
 
-  Models.User.findOne({
-    attributes: { exclude: ['password_hash'] },
-    include: includeArray,
-    where: { 
-      id: parseInt(req.params.user_id) 
-    }
-  })
-  .then((results) => {
-    res.json(results);
-  })
-});
+  if (searchTerm == 'quizzess-made'){
+    var quizzess_made;
+    Models.Quiz.findAll({
+      where: { made_by: userId }
+    }).then((quizMade) => {
+      quizzess_made = quizMade;
+      return Models.User.findOne({ where: { id: userId }});
+    }).then((user) => {
+      var userObj = user.dataValues;
+      userObj.quizzess_made = quizzess_made;
+      res.json(userObj);
+    });
+  } else {
+    switch (searchTerm) {
+      case 'categories': {
+        var includeArray = [{ model: Models.Category }];
+        break;
+      }
+      case 'quizzess-taken': {
+        var includeArray = [{ model: Models.Quiz }];
+        break;
+      }
+      case 'posts': {
+        var includeArray = [{ model: Models.Post }];
+        break;
+      }
+    }; // ends switch
+
+    Models.User.findOne({
+      attributes: { exclude: ['password_hash'] },
+      include: includeArray,
+      where: { 
+        id: userId, 
+      }
+    })
+    .then((results) => {
+        res.json(results);
+    })
+  } // end of else
+
+}); // closes router
+
+
 
 
 
