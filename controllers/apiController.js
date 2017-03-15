@@ -116,6 +116,7 @@ router.get('/quiz/:id?', (req, res) => {
 router.post('/quiz/new', (req, res) => {
   // helper functions - to insert data 
   function insertCategories(categories, quiz_id) {
+    if (categories.length === 0) return Promise.resolve(); // don't try to insert empty data
     var insertData = categories.map((category_id) => { ({category_id, quiz_id}) });
     return Models.QuizCategory.bulkCreate(insertData);
   };
