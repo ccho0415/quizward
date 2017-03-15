@@ -16,13 +16,10 @@ router.get('/', function(req, res) {
   res.render('api.handlebars');
 })
 
-// CATEGORY  ----------------------------------- //
-// --------- Category GET ----------------------//
+// ====================== CATEGORY routes ====================== //
+// GET for category ----------------------//
 router.get('/categories/:id?', (req, res) => {
-  // 1.) if there's a category id in query string get it
   category_id = parseInt(req.params.id);
-
-  // 2) Query database
   if (category_id) {
     Models.Category.findOne(
       { where: { id: category_id} }
@@ -36,11 +33,13 @@ router.get('/categories/:id?', (req, res) => {
   }
 });
 
-// USER ----------------------------------- //
+// ====================== USER routes  ====================== //
+// GET for user ----------------------//
 router.get('/users/:id?', (req, res) => {
-  if (req.params.id) {
+  var userId = parseInt(req.params.id);
+  if (userId) {
     Models.User.findOne({
-      where: { id: parseInt(req.params.id) },
+      where: { id: userId },
       attributes: { exclude: ['password_hash'] },
     }).then((results) => {
       res.json(results);
@@ -97,15 +96,14 @@ router.get('/users/:user_id/:searchTerm?', (req, res) => {
         res.json(results);
     })
   } // end of else
-
 }); // closes router
 
 
 
 
 
-// QUIZ ----------------------------------- //
-// --------- QUIZ GET ----------------------//
+// ====================== QUIZ routes  ====================== //
+// GET for quiz ----------------------//
 router.get('/quiz/:id?', (req, res) => {
   var quiz_id = parseInt(req.params.id);
 
@@ -122,7 +120,7 @@ router.get('/quiz/:id?', (req, res) => {
   }
 });
 
-// --------- QUIZ POST ----------------------//
+// POST for quiz ----------------------//
 router.post('/quiz/new', (req, res) => {
   // helper functions - to insert data 
   function insertCategories(categories, quiz_id) {
