@@ -20,7 +20,7 @@ $(document).ready(function() {
   var userdata;
   var categorydata;
 
-  // This is what changes the result that is displayed for the result
+  // This is what changes the result that is displayed for the result for user search
   // You can change this
   // ============================================================================
   function userinitializeRows(name, email, isAdmin, id, img, dob, created) {
@@ -57,7 +57,7 @@ $(document).ready(function() {
   }
 
 
-  // This is what changes the result that is displayed for the result
+  // This is what changes the result that is displayed for the result for catergories
   // You can change this
   // ============================================================================
   function categoryinitializeRows(name, id, img, description, created) {
@@ -90,7 +90,8 @@ $(document).ready(function() {
     });
     categoryToSearch.val("");
   }
-
+// This updates the user if you updated it on the page do not change this
+// ================================================================================================
 function updateUser(event){
   event.preventDefault();
   var currentuser = $("#userToModify").val().trim();
@@ -108,6 +109,8 @@ function updateUser(event){
     console.log("all finished");
   });
 } 
+// This updates the category if you updated it on the page do not change this
+// ==============================================================
 function updateCategory(event){
   event.preventDefault();
   var currentcategory = $("#catToModify").val().trim();
