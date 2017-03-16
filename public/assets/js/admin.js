@@ -48,7 +48,7 @@ $(document).ready(function() {
       userdata = data;
 // You can change this next line to take in more / less arguments
 // ======================================================================================================
-      userinitializeRows(data.username, data.email, data.isAdmin, data.id, data.img_url, data.dob, data.createdAt);
+      userinitializeRows(data.username, data.email, data.isAdmin, data.id, data.img_url, data.dob, data.created_at);
       // ====================================================================================================
 // Do not change anything after this line
     });
@@ -84,7 +84,7 @@ $(document).ready(function() {
       categorydata = data;
 // You can change this next line to take in more / less arguments
 // ======================================================================================================
-      categoryinitializeRows(data.categoryname,data.id, data.img_url, data.description, data.createdAt);
+      categoryinitializeRows(data.name,data.id, data.image, data.description, data.created_at);
       // ====================================================================================================
 // Do not change anything after this line
     });
@@ -119,7 +119,7 @@ function updateCategory(event){
       data: {
         name: currentcategory,
         description: newdescription,
-        img_url: newimg
+        image: newimg
       }
   }).done(function(){
     console.log("all finished");
