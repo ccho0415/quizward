@@ -9,16 +9,35 @@ var router = express.Router();
 // =========== GET ROUTES ===========
 // TEST ROUTE --- comment out later
 router.get('/', function(req, res) {
-  Models.Quiz.findAll({}).then((results) => {
+  Models.Quiz.findAll({
+    include: [{
+      model: Models.User,
+      through: Models.UserQuiz,
+    }, {
+      model: Models.Category,
+      through: Models.QuizCategory,
+    }],
+  }).then((results) => {
     var quizzes = {
       quizzes: results
     };
+    // res.json(quizzes);
     res.render('quizzes/all', quizzes);
   });
 });
 
 router.get('/new', function(req, res) {
   res.render('quizzes/new');
+});
+
+// needs to be adjusted to associate with each individual quiz
+router.get('/results', function(req, res) {
+  Models.Post.findAll({}).then((results) => {
+    var posts = {
+      posts: results
+    };
+    res.render('quizzes/results', posts);
+  });
 });
 
 router.get('/api/new', function(req, res) {
@@ -34,10 +53,10 @@ router.get('/:id', function(req, res) {
     var quiz = {
       quiz: results
     };
-    res.json(quiz);
-    // res.render('quizzes/single', quiz);
+    res.render('quizzes/single', quiz);
   });
 });
+
 
 
 // =========== POST ROUTES ===========
@@ -68,6 +87,20 @@ router.post('/create', jsonParse, (req, res) => {
     category_id: req.body.category,
   }).then(function(q) {
     res.json(q);
+  });
+});
+
+// create new comment
+router.post('/comment', (req, res) => {
+  Models.Post.create({
+    comment: req.body.comment,
+    // dummy numbers until can be tested with auth
+    // requires there to be at least one entry in the user and quiz tables
+    user_id: 1,
+    quiz_id: 1
+  }).then(function(dbPost){
+    console.log(dbPost);
+    res.redirect('results');
   });
 });
 

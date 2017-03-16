@@ -31,10 +31,10 @@ $ npm run test-db
 ```
 
 ## ERD
-![link](.notes/quizward_ERD.png)
+![link](.notes/ERD_2.0.png)
 
 ## Contributors
-* **Alex Rosenkranz** 
+* **Alex Rosenkranz** [github](https://github.com/alexrosenkranz)
 * **Alan Chu** [github](https://github.com/thechutrain)
-* **Alisa Schick**
-* **Christine Chong**
+* **Alisa Schick** [github](https://github.com/alisaschink)
+* **Christine Chong** [github](https://github.com/ccho0415)
