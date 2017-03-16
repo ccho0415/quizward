@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu')
+.jumbotron{
+	background: #276cb3 !important;
 }
 .logo-title{
 	color: white;
