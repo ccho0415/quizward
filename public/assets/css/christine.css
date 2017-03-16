@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu')
+}
+.logo-title{
+	color: white;
+	font-family: 'Ubuntu', sans-serif;
+}
+.logo-title:hover{
+	color: grey;
+}
+.navbar-right > li >a {
+	font-family: 'Ubuntu', sans-serif;
+	color: white;
+}
+.navbar-right > li >a:hover {
+	color: white;
+	background-color: orange;
+}
