@@ -1,12 +1,25 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {{#if user }}
 <h2>Welcome back <strong>{{ user.username }} </strong>!</h2>
 {{ else }}
 <h2>Hello <strong> Guest </strong></h2>
 {{/if}}
 <br>
+=======
+<div class="page-header">
+  {{#if user }}
+  <h1>Welcome back <strong>{{ user.username }} </strong>!</h1>
+  {{ else }}
+  <h1>Hello <strong> Guest </strong></h1>
+  <p>If you're already registered make sure to sign in, otherwise sign up by clicking below or continue as a guest!</p>
+  <p><a class="btn btn-primary" href="/auth/login" role="button">Sign In</a> <a class="btn btn-primary" href="/auth/signup" role="button">Sign Up</a></p>
+  {{/if}}
+  <br>
+>>>>>>> origin/master
 <h2> Here are the most popular quizzes : </h2>
 <br>
+</div>
 <div class="list-group">
   {{#each quizzes}}	
   <div class=" quiz-home col-md-4">
@@ -18,6 +31,7 @@
   </div>
   {{/each}}
 </div>
+<<<<<<< HEAD
 =======
 <div class="page-header">
   {{#if user }}
@@ -29,8 +43,13 @@
   {{/if}}
 </div>
 
+=======
+>>>>>>> origin/master
 
 
 
 
+<<<<<<< HEAD
 >>>>>>> refs/remotes/thechutrain/master
+=======
+>>>>>>> origin/master

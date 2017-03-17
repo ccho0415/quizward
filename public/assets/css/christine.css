@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css?family=Ubuntu')
 .jumbotron{
 	background: #276cb3 !important;
@@ -62,6 +63,9 @@ a.quiz-home .list-group-item-heading  {
 	background-color: #2361A1;
 	color: white;
 =======
+=======
+
+>>>>>>> origin/master
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 h1,
 h2,
@@ -115,5 +119,8 @@ h6 {
 .adminButtonHolder {
   margin-top: 20px;
   text-align: center;
+<<<<<<< HEAD
 >>>>>>> refs/remotes/thechutrain/master
+=======
+>>>>>>> origin/master
 }

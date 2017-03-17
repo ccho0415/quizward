@@ -22,7 +22,6 @@ router.get("/users", function(req, res) {
   });
 });
 router.post("/create/user", function(req, res) {
-<<<<<<< HEAD
   db.User.findAll({
     where: {username: req.body.username}
   }).then(function(users){
@@ -46,11 +45,6 @@ router.post("/create/user", function(req, res) {
 
     });
   }
-  
-=======
-  db.User.create(req.body).then(function(dbUser) {
-    res.redirect("/admin");
->>>>>>> refs/remotes/thechutrain/master
   });
 });
 router.get("/user/search/:username", function(req,res){
