@@ -1,5 +1,5 @@
 var express = require('express');
-var Models = require("../models")
+var db = require("../models")
 var bodyParser = require('body-parser');
 
 // Create Router Object & middleware
@@ -10,13 +10,13 @@ router.use(jsonParse);
 
 // Routers
 router.get('/', function(req, res) {
-  Models.Quiz.findAll({
+  db.Quiz.findAll({
     include: [{
-      model: Models.User,
-      through: Models.UserQuiz,
+      model: db.User,
+      through: db.UserQuiz,
     }, {
-      model: Models.Category,
-      through: Models.QuizCategory,
+      model: db.Category,
+      through: db.QuizCategory,
     }],
   }).then((results) => {
     var quizzes = {
