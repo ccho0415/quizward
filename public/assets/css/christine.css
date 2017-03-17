@@ -7,7 +7,7 @@
 	font-family: 'Ubuntu', sans-serif;
 }
 .logo-title:hover{
-	color: grey;
+	color: white;
 }
 .navbar-right > li >a {
 	font-family: 'Ubuntu', sans-serif;
@@ -16,4 +16,33 @@
 .navbar-right > li >a:hover {
 	color: white;
 	background-color: orange;
+}
+.picDisplay{
+	float:left;
+	margin-right: 50px;
+	margin-bottom: 50px;
+}
+.nameDisplay{
+	float:left;
+}
+.panel-default .panel-heading, .panel-body{
+	background-color: #276cb3 ;
+	border-bottom: 0px;
+}
+.panel-title{
+	color: white;
+}
+.adminPageText{
+	margin: auto;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+}
+.adminPageHr{
+	border-color: orange;
+}
+
+.adminButtonHolder{
+	margin-top: 20px;
+	text-align: center;
 }
