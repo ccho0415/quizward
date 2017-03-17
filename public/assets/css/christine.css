@@ -25,11 +25,11 @@
 .nameDisplay{
 	float:left;
 }
-.panel-default .panel-heading, .panel-body{
+.api .panel-heading, .api .panel-body{
 	background-color: #276cb3 ;
 	border-bottom: 0px;
 }
-.panel-title{
+.api.panel-title{
 	color: white;
 }
 .adminPageText{
