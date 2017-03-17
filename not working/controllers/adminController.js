@@ -4,6 +4,7 @@
 var express = require('express');
 // Requiring Models
 var db = require("../models");
+var bcrypt = require('bcryptjs');
 var router = express.Router();
 
 router.get("/", function(req,res){
@@ -21,8 +22,29 @@ router.get("/users", function(req, res) {
   });
 });
 router.post("/create/user", function(req, res) {
-  db.User.create(req.body).then(function(dbUser) {
-    res.redirect("/admin");
+  db.User.findAll({
+    where: {username: req.body.username}
+  }).then(function(users){
+        if (users.length > 0){
+      console.log(users)
+      res.send('we already have an email or username for this account')
+    }else{
+      bcrypt.genSalt(10, function(err, salt) {
+          bcrypt.hash(req.body.password_hash, salt, function(err, hash) {
+            db.User.create({
+              username: req.body.username,
+              email: req.body.email,
+              password_hash: hash,
+              isAdmin: req.body.isAdmin,
+              img_url: req.body.img_url,
+              dob: req.body.dob
+            }).then(function(user){
+                res.redirect("/admin");
+          });
+      });
+
+    });
+  }
   });
 });
 router.get("/user/search/:username", function(req,res){

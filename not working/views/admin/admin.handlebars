@@ -1,0 +1,95 @@
+<div class = "adminPageBody" class = "container">
+<h1 class = "adminPageText">Admin Page</h1>
+<hr class = "adminPageHr">
+<div class = "row">
+  <h2 class = "adminPageText">User Controllers</h2>
+  <div class = "adminButtonHolder">
+  <a class="btn btn-default adminPageButton" href="/admin/users">View All Users</a>
+  </div>
+  <br><br>
+  <div class = "col-md-3">
+  <h3> Create a user</h3>
+  <br>
+  <form id="userForm" action="/admin/create/user" method="POST">
+    <input type="text" name="username" placeholder="username"></input>
+  <br><br>
+    <input type="email" name="email" placeholder="email"></input>
+  <br><br>
+    <input type="password" name="password_hash" placeholder="password"></input>
+  <br><br>
+    <input type="checkbox" name="isAdmin" value="true" placeholder="admin"></input>
+  <br><br>
+    <input type="url" name="img_url" placeholder="img url"></input>
+  <br><br>
+    <input type="date" name="dob" placeholder="date of birth"></input>
+  <br><br>
+    <input type="submit"></input>
+  </form>
+  </div>
+
+  <div class = "col-md-5">
+  <h3>Search for a User</h3>
+  <br>
+  <form id="user-search">
+  <input id="userToSearch" placeholder="Which User?" type="text" />
+    <button type="submit" class="btn btn-default" id="user-search-button">Search a User</button>
+  </form>
+  <br>
+  <span id="user-search-result"></span>
+  </div>
+
+  <div class = "col-md-4">
+  <h3>Modify A User </h3>
+  <br>
+  <form id ="#modifyUserForm">
+    <input type='text' name='modusername' placeholder='username' id ='userToModify'></input><br><br>
+    <input type='url' name='modimg_url' placeholder='img url' id ="modimg_url"></input><br><br>
+    <input id = 'modify-user-submit' type='submit'></input>
+  </form>
+  </div>
+</div>
+<hr class = "adminPageHr">
+
+<div class = "row">
+<h2 class = "adminPageText">Category Controllers</h2>
+  <div class = "adminButtonHolder">
+  <a class="btn btn-default adminPageButton" href="/admin/categories">View All Categories</a>
+  </div>
+  <br><br>
+  <div class = "col-md-3">
+  <h3> Create a Category </h3>
+  <br>
+  <form id ="categoryForm" action="/admin/create/category" method="POST">
+    <input type="text" name="name" placeholder="category"></input>
+  <br><br>
+    <textarea name="description" placeholder="description"></textarea>
+  <br><br>
+    <input type="url" name="image" placeholder="img url"></input>
+  <br><br>
+    <input type="submit"></input>
+  </form>
+</div>
+<div class = "col-md-5">
+  <h3> Search a Category </h3>
+  <br>
+  <form id="category-search">
+    <input id="categoryToSearch" placeholder="Which Category?" type="text" />
+    <button type="submit" class="btn btn-default" id="category-serach-button">Search a Category</button>
+  </form>
+  <br>
+  <span id="category-search-result"></span>
+</div>
+<div class = "col-md-4">
+  <h3>Modify a Category</h3>
+  <br>
+  <form id ="#modifyCategoryForm">
+    <input type='text' name='modcat' placeholder='username' id ='catToModify'></input><br><br>
+    <textarea name="moddescription" placeholder="description" id ="moddescription"></textarea><br><br>
+    <input type='url' name='modimg_url' placeholder='img url' id ="modimg_urlcat"></input><br><br>
+    <input id = 'modify-category-submit' type='submit'></input>
+</form> 
+</div> 
+</div>
+<hr class = "adminPageHr">
+</div>
+    
