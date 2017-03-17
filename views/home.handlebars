@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {{#if user }}
 <h2>Welcome back <strong>{{ user.username }} </strong>!</h2>
 {{ else }}
@@ -17,3 +18,19 @@
   </div>
   {{/each}}
 </div>
+=======
+<div class="page-header">
+  {{#if user }}
+  <h1>Welcome back <strong>{{ user.username }} </strong>!</h1>
+  {{ else }}
+  <h1>Hello <strong> Guest </strong></h1>
+  <p>If you're already registered make sure to sign in, otherwise sign up by clicking below or continue as a guest!</p>
+  <p><a class="btn btn-primary" href="/auth/login" role="button">Sign In</a> <a class="btn btn-primary" href="/auth/signup" role="button">Sign Up</a></p>
+  {{/if}}
+</div>
+
+
+
+
+
+>>>>>>> refs/remotes/thechutrain/master
