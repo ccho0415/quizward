@@ -3,3 +3,17 @@
 {{ else }}
 <h2>Hello <strong> Guest </strong></h2>
 {{/if}}
+<br>
+<h2> Here are the most popular quizzes : </h2>
+<br>
+<div class="list-group">
+  {{#each quizzes}}	
+  <div class=" quiz-home col-md-4">
+    <a class="quiz-home list-group-item quiz-info" href="/quizzes/{{id}}">
+      <h4 class="quiz-home list-group-item-heading">{{name}}</h4>
+      <p class="list-group-item-text">{{description}}</p>
+      <small>Made By: {{Users.0.username}}</small>
+    </a>
+  </div>
+  {{/each}}
+</div>

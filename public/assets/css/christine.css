@@ -46,3 +46,18 @@
 	margin-top: 20px;
 	text-align: center;
 }
+.quiz-home .list-group-item{
+	border-color: black;
+	background-color: #276cb3;
+	color: white;
+	font-family: 'Ubuntu', sans-serif;
+	margin-bottom: 10px;
+}
+a.quiz-home .list-group-item-heading  {
+	color: orange;
+	font-family: 'Ubuntu', sans-serif;
+}
+.quiz-home .list-group-item:hover{
+	background-color: #2361A1;
+	color: white;
+}
