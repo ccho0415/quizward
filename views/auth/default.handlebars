@@ -6,9 +6,10 @@
 <h2>You are signed in as: <strong> Guest </strong></h2>
 {{/if}}
 
-<h4>Test View</h4>
-<p>auth/test.handlebars view template</p>
-
+{{#if user.isAdmin }}
+<a class="btn btn-primary" href="/admin" role="button">Admin Page</a> 
+{{/if}}
+<br><br>
 <ul>
   <li>
     <p> View current session: <a href="/auth/session">link</a></p>
