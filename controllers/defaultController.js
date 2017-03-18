@@ -10,7 +10,8 @@ router.use(jsonParse);
 // Routers
 router.get('/', function(req, res) {
   res.render('home', { user: req.user });
-})
+});
+
 
 // TEMPLATING && SCAFFOLDING EXAMPLE FOR USING AUTHENTICATION!!
 router.get('/test', function(req, res) {

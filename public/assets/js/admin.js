@@ -124,6 +124,7 @@ function updateUser(event){
     }
 
     window.location.href = "/admin";
+    return false;
   })
 } 
 // This updates the category if you updated it on the page do not change this
@@ -147,6 +148,7 @@ function updateCategory(event){
     }
 
     window.location.href = "/admin";
+    return false;
   })
 } 
 
@@ -166,6 +168,7 @@ function deleteUser(event){
     }
 
     window.location.href = "/admin";
+    return false;
   })
 }
 function deleteCategory(event){
@@ -184,6 +187,7 @@ function deleteCategory(event){
     }
 
     window.location.href = "/admin";
+    return false;
   })
 }
 
