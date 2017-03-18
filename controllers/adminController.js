@@ -4,6 +4,7 @@
 var express = require('express');
 // Requiring Models
 var db = require("../models");
+var bcrypt = require('bcryptjs');
 var router = express.Router();
 
 router.get("/", function(req,res){
