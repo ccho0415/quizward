@@ -17,13 +17,11 @@ module.exports = function(sequelize, DataTypes) {
           associate: function(models) {
             UserQuiz.belongsTo(models.Quiz, {
               foreignKey: {
-                targetKey: 'id',
                 allowNull: false
               }
             })
             UserQuiz.belongsTo(models.User, {
               foreignKey: {
-                targetKey: 'id',
                 allowNull: false
               }
             })

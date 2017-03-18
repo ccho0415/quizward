@@ -1,5 +1,9 @@
 var express = require('express');
+<<<<<<< HEAD
 var db = require("../models")
+=======
+var Models = require('../models');
+>>>>>>> refs/remotes/thechutrain/master
 var bodyParser = require('body-parser');
 
 // Create Router Object & middleware
