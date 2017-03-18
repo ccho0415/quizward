@@ -68,7 +68,8 @@ $(document).ready(function() {
 
     $.post('/api/userquiz', quizResults).then(function(results) {
       // window.location.replace(results.url)
-      window.location.replace("http://"+"<%= @result.url %>");
+      // window.location.replace("http://"+"<%= @result.url %>");
+        window.location.href = results.url;
       return false;
     });
   });
