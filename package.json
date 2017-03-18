@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+<<<<<<< HEAD
+=======
+  "scripts": {
+    "test-db": "node tests/models.test.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+>>>>>>> refs/remotes/thechutrain/master
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thechutrain/quizward.git"
