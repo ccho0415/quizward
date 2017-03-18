@@ -150,7 +150,9 @@ router.post('/userquiz', (req, res) => {
   var score = req.body.score;
   var quizAnswers = JSON.parse(req.body.quizAnswers);
   var user_id = req.user ? req.user.id : "1";
+  var user_id = parseInt(user_id);
   var quiz_id = req.body.quiz_id;
+  var quiz_id = parseInt(quiz_id);
   var userAnswers = JSON.parse(req.body.userAnswers);
   console.log(typeof userAnswers);
   Models.UserQuiz.create({
