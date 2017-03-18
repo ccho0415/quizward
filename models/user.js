@@ -54,9 +54,9 @@ module.exports = function(sequelize, DataTypes) {
           User.belongsToMany(models.Quiz, { through: 'Vote', foreignKey: 'user_id' });
           // User.belongsToMany(models.Quiz, { through: 'Comment', foreignKey: 'user_id' });
           User.belongsToMany(models.Category, { through: 'UserCategory', foreignKey: 'user_id' });
-          User.hasMany(models.Post);
-          User.hasMany(models.UserQuiz);
-          User.belongsTo(models.Avatar);
+          User.hasMany(models.Post, {foreignKey: 'user_id'});
+          User.hasMany(models.UserQuiz,{foreignKey: 'user_id'});
+          // User.belongsTo(models.Avatar);
         }
       } // end classMethods
     }); // end .define

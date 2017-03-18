@@ -69,3 +69,10 @@ Models.sequelize.sync({ force: false }).then(function() {
     console.log(`Listening on PORT: ${PORT}`);
   });
 });
+// var sql = 'SET FOREIGN_KEY_CHECKS = 0';
+// var options = {raw: true};
+//    Models.sequelize
+//    .query( sql, null, options)
+//    .success(function(results) {
+//        Models.sequelize.sync({force: true});
+//    });
