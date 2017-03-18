@@ -68,6 +68,7 @@ $(document).ready(function() {
 
     $.post('/api/userquiz', quizResults).then(function(results) {
       window.location.replace(results.url)
+      return false;
     });
   });
 
