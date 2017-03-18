@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var regex = new RegExp(/^\/quizzes\/[\d]$/, 'gi');
+  var regex = new RegExp(/^\/quizzes\/[\d]+/, 'gi');
   var proceed = regex.test(window.location.pathname);
   if (!proceed) {
     console.log("this js file won't run for this url pathname");
@@ -67,10 +67,7 @@ $(document).ready(function() {
     console.log(quizResults);
 
     $.post('/api/userquiz', quizResults).then(function(results) {
-      // window.location.replace(results.url)
-      // window.location.replace("http://"+"<%= @result.url %>");
-     window.location.href = results.url;
-      return false;
+      window.location.replace(results.url)
     });
   });
 

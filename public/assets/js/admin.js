@@ -124,7 +124,6 @@ function updateUser(event){
     }
 
     window.location.href = "/admin";
-    return false;   
   })
 } 
 // This updates the category if you updated it on the page do not change this
@@ -148,7 +147,6 @@ function updateCategory(event){
     }
 
     window.location.href = "/admin";
-    return false;
   })
 } 
 
@@ -168,7 +166,6 @@ function deleteUser(event){
     }
 
     window.location.href = "/admin";
-   return false; 
   })
 }
 function deleteCategory(event){
@@ -187,7 +184,6 @@ function deleteCategory(event){
     }
 
     window.location.href = "/admin";
-    return false;
   })
 }
 
@@ -223,8 +219,7 @@ function modUserRows(name, email, admin, id, image, dob){
 
 function modUser(event){
   event.preventDefault();
-  var userid = $(this).data("uid");
-  console.log(userid);
+  var userid = $(this).data();
     $.get("/api/users/"+userid, function() {
       console.log("pinging the server")
     }).then(function(data){
@@ -232,14 +227,14 @@ function modUser(event){
       data = data;
 // You can change this next line to take in more / less arguments
 // ======================================================================================================
-      modUserRows(data.username, data.email, data.isAdmin, data.id, data.img_url, data.dob);
+      modUserRows(data[0].username, data[0].email, data[0].isAdmin, data[0].id, data[0].img_url, data[0].dob);
       // ====================================================================================================
 });
 }
 
 function modCategory(event){
   event.preventDefault();
-  var catid = $(this).data("uid");
+  var catid = $(this).data();
     $.get("/api/categories/"+catid, function() {
       console.log("pinging the server")
     }).then(function(data){
@@ -247,7 +242,7 @@ function modCategory(event){
       data = data;
 // You can change this next line to take in more / less arguments
 // ======================================================================================================
-      modCatRows(data.name, data.description, data.image, data.id);
+      modCatRows(data[0].name, data[0].description, data[0].image, data[0].id);
       // ====================================================================================================
       console.log(data[0].id);
 });

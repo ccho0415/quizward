@@ -3,7 +3,6 @@
 // Requiring Express
 var express = require('express');
 // Requiring Models
-var bcrypt = require('bcryptjs');
 var db = require("../models");
 var router = express.Router();
 

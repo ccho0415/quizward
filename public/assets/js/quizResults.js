@@ -1,10 +1,10 @@
 $(document).ready(function() {
-  var regex = new RegExp(/^\/quizzes\/\d+\/results/, 'gi');
-  var proceed = regex.test(window.location.pathname);
-  if (!proceed) {
-    console.log("this js file won't run for this url pathname");
-    return;
-  }
+  // var regex = new RegExp(/^\/quizzes\/[\d]+/ ^ \results\, 'gi');
+  // var proceed = regex.test(window.location.pathname);
+  // if (!proceed) {
+  //   console.log("this js file won't run for this url pathname");
+  //   return;
+  // }
 
 
   var quizId;
@@ -39,7 +39,7 @@ $(document).ready(function() {
 
       var newPanelTitle = $('<h4>').addClass('panel-title');
 
-      var newPanelLink = $('<a>').attr('href', '#collapse' + i).data('parent', '#accordion').attr('data-role', 'button').attr('data-toggle', 'collapse').html('Taken: ' + moment(r.a.UserQuizzes[i].created_at).format("dddd, MMMM Do YYYY, h:mm a")).attr('aria-controls', i).attr('aria-expanded', 'false').addClass('collapsed');
+      var newPanelLink = $('<a>').attr('href', '#collapse' + i).data('parent', '#accordion').attr('data-role', 'button').attr('data-toggle', 'collapse').html('Quiz ' + (i + 1) + ' Taken At: ' + r.a.UserQuizzes[i].created_at).attr('aria-controls', i).attr('aria-expanded', 'false').addClass('collapsed');
 
       newPanelTitle.append(newPanelLink);
       newPanelHeading.append(newPanelTitle);
@@ -56,10 +56,9 @@ $(document).ready(function() {
         // console.log(item);
         var newQuestion = $('<div>').addClass('well well-lg');
         var questionInfo = $('<h5>').html(item.question);
-        var questionAnswer = $('<p>').html('<strong>Answer:</strong> <em>' + JSON.parse(item.correct_answer) + '</em>');
-        var answerExplanation = $('<p>').html('<strong>Explanation:</strong> <em>' + item.explanation + '</em>');
+        var questionAnswer = $('<p>').html('Answer: ' + JSON.parse(item.correct_answer));
 
-        var userAnswer = $('<p>').html('<strong>Your Answer:</strong> <em>' + userChoices[index] + '</em>');
+        var userAnswer = $('<p>').html('Your Answer: ' + userChoices[index]);
         if ((JSON.parse(item.correct_answer)) === userChoices[index]) {
           newQuestion.addClass('correct-bg');
           correct++;
@@ -69,7 +68,6 @@ $(document).ready(function() {
         newQuestion.append(questionInfo);
         newQuestion.append(questionAnswer);
         newQuestion.append(userAnswer);
-        newQuestion.append(answerExplanation);
         newPanelBody.append(newQuestion);
       })
       var total = $('<span>').addClass('label score label-default').html('You got ' + correct + ' out of ' + totalQuestions + ' correct!');
@@ -83,48 +81,33 @@ $(document).ready(function() {
 
   }
 
-  $(".comment-submit").on('click', function(e) {
-    e.preventDefault();
-    var comment = $(".comment-body").val().trim();
-    quizId = $('.quiz-results').attr('results-id');
+$(".comment-submit").on('click', function(e){
+  e.preventDefault();
+  var comment = $(".comment-body").val().trim();
+  quizId = $('.quiz-results').attr('results-id');
 
-    //form validation
-    function validateForm() {
-      var validated = true;
-      if (comment == "") {
-        validated = false;
-      }
-      return validated;
-    }
-
-    if (validateForm() == true) {
-      var commentObj = {
-        comment: comment,
-        quiz_id: quizId
-      }
-
-      $.post('/quizzes/comment', commentObj).then(function(results) {
-        console.log(results);
-        displayResults();
-      })
-    } else {
-      $('.help-block').show();
-    }
-
+  var commentObj = {
+    comment: comment,
+    quiz_id: quizId
+  }
+  
+  $.post('/quizzes/comment', commentObj).then(function(results){
+    console.log(results);
+    displayResults();
   })
+})
 
-  function printComments(r) {
-    $('.help-block').hide();
-    $('.comment-body').val('');
+  function printComments(r){
     $('.posts-container').empty();
-    for (var i = 0; i < r.b.length; i++) {
-      var username = r.b[i].User.username + " Posted At " + moment(r.b[i].created_at).format("dddd, MMMM Do YYYY, h:mm a");
+     for (var i = 0; i < r.b.length; i++) {
+      var username = r.b[i].User.username;
       var comments = r.b[i].comment;
       var usernameDiv = $('<div>').addClass('username-div').append(username);
       var commentDiv = $('<div>').addClass('comment-div').append(comments);
       commentDiv.prepend(usernameDiv);
       $('.posts-container').append(commentDiv);
-    }
+    } 
   }
+
 
 });

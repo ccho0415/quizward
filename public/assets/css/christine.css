@@ -8,6 +8,15 @@ h6 {
   font-family: 'Ubuntu', sans-serif;
 }
 
+.logo-title {
+  color: white;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.logo-title:hover {
+  color: white;
+}
+
 .picDisplay {
   float: left;
   margin-right: 50px;
