@@ -150,9 +150,10 @@ router.post('/userquiz', (req, res) => {
   var score = req.body.score;
   var quizAnswers = JSON.parse(req.body.quizAnswers);
   var user_id = req.user ? req.user.id : "1";
-  var user_id = parseInt(user_id);
   var quiz_id = req.body.quiz_id;
-  var quiz_id = parseInt(quiz_id);
+  console.log("======================================================================================");
+  console.log("user_id",user_id,"quiz_id", quiz_id);
+  console.log("======================================================================================");
   var userAnswers = JSON.parse(req.body.userAnswers);
   console.log(typeof userAnswers);
   Models.UserQuiz.create({
@@ -291,7 +292,7 @@ router.post('/quiz/new', (req, res) => {
         var question_promise = insertQuestions(questions, quiz.id);
         return Promise.all([category_promise, question_promise]);
       })
-      .then((results) => res.redirect("/quizzes")); // ends Quiz.creation 
+      .then((results) => res.json({ url: "/quizzes/" })); // ends Quiz.creation 
   }
 });
 

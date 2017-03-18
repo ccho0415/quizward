@@ -1,6 +1,6 @@
 var express = require('express');
 var bcrypt = require('bcryptjs');
-var Models = require('../models');
+var Models = require('../Models');
 var bodyParser = require('body-parser');
 
 // Create Router Object & middleware

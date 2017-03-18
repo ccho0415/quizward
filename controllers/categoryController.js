@@ -1,5 +1,5 @@
 var express = require('express');
-var Models = require('../models');
+var Models = require('../Models');
 var multer = require('multer');
 var router = express.Router();
 var storage = multer.diskStorage({
@@ -21,7 +21,8 @@ var upload = multer({ storage: storage })
 router.get('/', function(req, res) {
   Models.Category.findAll({}).then((results) => {
     var categories = {
-      categories: results
+      categories: results,
+      user: req.user
     };
     res.render('categories/all', categories);
   });
@@ -32,7 +33,8 @@ router.get('/', function(req, res) {
 router.get('/new', function(req, res) {
   Models.User.findAll({}).then((results) => {
     var users = {
-      users: results
+      users: results,
+      user: req.user
     };
     res.render('categories/new', users);
   });
@@ -49,7 +51,8 @@ router.get('/:id', function(req, res) {
     }]
   }).then((results) => {
     var category = {
-      category: results
+      category: results,
+      user: req.user
     };
     // res.json(category);
     res.render('categories/single', category);
@@ -62,15 +65,22 @@ router.get('/:id', function(req, res) {
 // =========== POST ROUTES ===========
 // Create Category
 
-router.post('/create', (req, res) => {
+router.post('/create', upload.single('image'), (req, res) => {
+  var imageName;
+  if (!req.file) {
+    imageName = "cat_default.jpg";
+  } else {
+    imageName = req.file.originalname;
+  }
   Models.Category.create({
     name: req.body.name,
     description: req.body.description,
-    image: req.body.image,
+    image: imageName,
     category_id: req.body.category
   }).then(function() {
     res.redirect('/categories');
   })
 });
+
 
 module.exports = router;

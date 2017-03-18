@@ -1,5 +1,5 @@
 var express = require('express');
-var Models = require('../models');
+var Models = require('../Models');
 var bodyParser = require('body-parser');
 // Create Router Object & middleware
 var jsonParse = bodyParser.json();
@@ -19,7 +19,8 @@ router.get('/', function(req, res) {
     }],
   }).then((results) => {
     var quizzes = {
-      quizzes: results
+      quizzes: results,
+      user: req.user
     };
     // res.json(quizzes);
     res.render('quizzes/all', quizzes);
@@ -27,7 +28,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/new', function(req, res) {
-  res.render('quizzes/new');
+  res.render('quizzes/new', { user: req.user });
 });
 
 // needs to be adjusted to associate with each individual quiz
@@ -36,7 +37,8 @@ router.get('/:id/results', function(req, res) {
 
   Models.Quiz.findById(quizId).then((results) => {
     var quiz = {
-      quiz: results
+      quiz: results,
+      user: req.user
     };
     res.render('quizzes/results', quiz);
   });
@@ -60,7 +62,8 @@ router.get('/:id', function(req, res) {
 
   Models.Quiz.findById(quizId).then((results) => {
     var quiz = {
-      quiz: results
+      quiz: results,
+      user: req.user
     };
     res.render('quizzes/single', quiz);
   });
@@ -95,7 +98,7 @@ router.post('/create', jsonParse, (req, res) => {
     description: req.body.description,
     category_id: req.body.category,
   }).then(function(q) {
-    res.redirect("/quizzes");
+    res.json({ url: "/quizzes/" });
   });
 });
 
