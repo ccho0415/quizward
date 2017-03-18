@@ -15,12 +15,12 @@ module.exports = function(sequelize, DataTypes) {
         freezeTableName: true,
         classMethods:  {
           associate: function(models) {
-            UserQuiz.hasOne(models.Quiz, {
+            UserQuiz.belongsTo(models.Quiz, {
               foreignKey: {
                 allowNull: false
               }
             })
-            UserQuiz.hasOne(models.User, {
+            UserQuiz.belongsTo(models.User, {
               foreignKey: {
                 allowNull: false
               }
