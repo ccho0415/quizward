@@ -46,8 +46,7 @@ $(document).ready(function(){
     })
     .then(function(result){
       if (result.url) {
-     window.location.href = "'" +results.url+"'";
-        return false;
+     window.location.replace(results.url);
       } 
       else {
         console.log(result);
@@ -67,8 +66,7 @@ $(document).ready(function(){
     })
     .then(function(result){
       if (result.url) {
-     window.location.href = "'" +results.url+"'";
-        return false;
+     window.location.replace(results.url);
       } else {
         console.log(result);
       }

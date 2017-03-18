@@ -94,8 +94,7 @@ $(document).ready(function() {
 
     $.post('/api/quiz/new', data)
       .then(function(response) {
-     window.location.href = "'" +results.url+"'";
-        return false;
+     window.location.replace(results.url);
       });
   }); // closes .submit-quiz event
 
