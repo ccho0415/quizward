@@ -11,7 +11,7 @@ router.use(jsonParse);
 // Routers
 router.get('/', function(req, res) {
   db.Quiz.findAll({
-    include: [{
+    include
       model: db.User,
       through: db.UserQuiz,
     }, {
